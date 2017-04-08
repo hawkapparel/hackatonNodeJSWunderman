@@ -25,27 +25,19 @@ document.addEventListener('DOMContentLoaded', function() {
          height: -35
        }
      },
-     markers: [{
-       position: {
-         lat: 47.376332,
-         lng: 8.547511
-       },
-       infoText: 'Marker 1'
-     }, {
-       position: {
-         lat: 47.374592,
-         lng: 8.548867
-       },
-       infoText: 'Marker 2'
-     }, {
-       position: {
-         lat: 47.379592,
-         lng: 8.549867
-       },
-       infoText: 'Marker 3'
-     }]
+     markers: []
+   },
+   created: function(){
+     this.consultarApi();
    },
    methods: {
+     consultarApi: function(){
+       this.$http.get($api_URL)
+           .then(function(response) {
+            //  this.markers = response.body.results;
+             console.log(response);
+           });
+     }
      toggleInfoWindow: function(marker, idx) {
        this.infoWindowPos = marker.position;
        this.infoContent = marker.infoText;

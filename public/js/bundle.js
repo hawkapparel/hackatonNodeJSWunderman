@@ -1,3 +1,51 @@
+ $('form').submit(function(event) {
+
+        var formData = {
+            'name'              : $('input[name=iname]').val(),
+            'email'             : $('input[name=email]').val(),
+            'genre'             : $('input[name=genre]').val(),
+            'cx'                : $('input[name=cx]').val(),
+            'cy'                : $('input[name=cy]').val()
+        };
+        $.ajax({
+            type        : 'POST',
+            url         : 'http://localhost:3000/api/clients', 
+            data        : formData, 
+            dataType    : 'json', 
+            encode          : true
+        }).done(function(data) {
+            console.log(data); 
+        });
+        event.preventDefault();
+    });
+
+$("#look").click(function(){
+    var request = new XMLHttpRequest();
+    var nombre = document.getElementById("iname",).value;
+    request.open('GET', 'http://localhost:3000/api/clients/name/'+nombre, true);
+
+    request.onload = function() {
+      if (request.status >= 200 && request.status < 400) {
+        // Success!
+        var resp = request.responseText;
+        console.log(resp)
+        document.getElementById("datos").innerHTML  = resp;
+      } else {
+        document.getElementById("datos").innerHTML  = "Datos no encontrados";
+
+      }
+    };
+
+    request.onerror = function() {
+      // There was a connection error of some sort
+       document.getElementById("datos").innerHTML  = "Datos no encontrados";
+    };
+
+    request.send();
+
+
+});
+
 (function () {
     var content = document.getElementById("app");
     if (navigator.geolocation) {
@@ -68,4 +116,7 @@
         });
     }
     initMap();
+
 })();
+
+

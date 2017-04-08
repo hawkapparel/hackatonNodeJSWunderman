@@ -21,9 +21,7 @@ exports.findById = function(req, res) {
 
 //GET - Return a register with specified name
 exports.findByName = function(req, res) {
-	console.log("entro al findByName");
 	Client.find({name: req.params.name}, function(err, clients) {
-		console.log("wawa");
     if(err) return res.send(500, err.message);
     console.log('GET /clients/name/' + req.params.name);
 		res.status(200).jsonp(clients);

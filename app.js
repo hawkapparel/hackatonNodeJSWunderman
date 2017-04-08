@@ -27,6 +27,7 @@ var ClientCtrl = require('./controllers/clients');
 var router = express.Router();
 
 var layout = fs.readFileSync('views/index.html', 'utf8')
+var registro = fs.readFileSync('views/registro.html', 'utf8')
 
 // Index - Route
 
@@ -34,6 +35,9 @@ app.use(router);
 
 router.get('/', function(req, res) {
    res.send(layout);
+});
+router.get('/registro.html', function(req, res) {
+   res.send(registro);
 });
 
 

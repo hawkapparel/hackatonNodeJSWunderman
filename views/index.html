@@ -13,19 +13,22 @@
 
 	</head>
 	<body>
-		<div>
-			<h5><strong>Location Search</strong></h5>
-			<input type="text" id="iname" placeholder="Input name" class="validate"/>
 
-			<input type="button" id="look" value="Search">
-	
-			<span id="datos"></span>
-		</div>
-		<div id="app"></div>
+	<div id="vueMap">
+		<h5><strong>Location Search</strong></h5>
+		<input type="text" id="iname" placeholder="Input name"/>
+		<input type="button" id="look" value="Search">
+
 		<div id="map"></div>
+		<pre>
+			{{$data}}
+		</pre>
+	</div>
 
 	<script src="//maps.google.com/maps/api/js?key=AIzaSyCpSOEXuBwSjiCQfMseWutCpPrsoSAfg9g"></script>
-		<script src="https://code.jquery.com/jquery-1.12.4.min.js"></script>
+
+	<script src="https://code.jquery.com/jquery-1.12.4.min.js"></script>
+	<script src="//unpkg.com/vue@2.1.10/dist/vue.js"></script>
 	<script src="js/bundle.js"></script>
 	
 	</body>

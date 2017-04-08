@@ -22,9 +22,22 @@ exports.findById = function(req, res) {
 //GET - Return a register with specified name
 exports.findByName = function(req, res) {
 	Client.find({name: req.params.name}, function(err, clients) {
+
+	console.log("wawa");
+	var clientsArr = [];
+
     if(err) return res.send(500, err.message);
     console.log('GET /clients/name/' + req.params.name);
-		res.status(200).jsonp(clients);
+    console.log(clients);
+    
+  	for (var i = 0; i < clients.length; i++) {
+  		clientsArr.push({
+  			position: {lat: clients[i].cx, lng: clients[i].cy},
+  			infoText: clients[i].name
+  		});
+  	}
+
+		res.status(200).jsonp(clientsArr);
 	});
 };
 

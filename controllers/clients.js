@@ -19,6 +19,18 @@ exports.findById = function(req, res) {
 	});
 };
 
+//GET - Return a register with specified name
+exports.findByName = function(req, res) {
+	console.log("entro al findByName");
+	Client.find({name: req.params.name}, function(err, clients) {
+		console.log("wawa");
+    if(err) return res.send(500, err.message);
+    console.log('GET /clients/name/' + req.params.name);
+		res.status(200).jsonp(clients);
+	});
+};
+
+
 //POST - Insert a new register
 exports.add = function(req, res) {
 	console.log('POST');
@@ -26,7 +38,9 @@ exports.add = function(req, res) {
 	var client = new Client({
 		name:    req.body.name,
 		email: 	  req.body.email,
-		genre:    req.body.genre
+		genre:    req.body.genre,
+		cx:   		req.body.cx,
+		cy:       req.body.cy
 	});
 	client.save(function(err, client) {
 		if(err) return res.send(500, err.message);

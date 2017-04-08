@@ -32,24 +32,10 @@ var layout = fs.readFileSync('views/index.html', 'utf8')
 
 app.use(router);
 
-/*
-router.get('/', function(req, res) {  
-   res.render('views/index.html');
-});
-*/
 router.get('/', function(req, res) {
    res.send(layout);
 });
 
-
-
-
-/*
-router.get('/', function(req, res) {
-    // any logic goes here
-    res.render('views/index')
-});
-*/
 
 // API routes
 var api = express.Router();
@@ -62,6 +48,9 @@ api.route('/clients/:id')
   .get(ClientCtrl.findById)
   .put(ClientCtrl.update)
   .delete(ClientCtrl.delete);
+
+api.route('/clients/name/:name')  
+  .get(ClientCtrl.findByName);
 
 app.use('/api', api);  
 

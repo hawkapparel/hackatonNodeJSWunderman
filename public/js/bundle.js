@@ -7,6 +7,7 @@ document.addEventListener('DOMContentLoaded', function() {
  new Vue({
    el: '#vueMap',
    data: {
+     nameSearch: '',
      center: {
        lat: 47.376332,
        lng: 8.547511
@@ -27,17 +28,17 @@ document.addEventListener('DOMContentLoaded', function() {
      },
      markers: []
    },
-   created: function(){
-     this.consultarApi();
-   },
+  //  created: function(){
+  //    this.consultarApi();
+  //  },
    methods: {
      consultarApi: function(){
-       this.$http.get($api_URL)
+       this.$http.get('http://localhost:3000/api/clients/name/'+this.nameSearch)
            .then(function(response) {
-            //  this.markers = response.body.results;
+             this.markers = response.body;
              console.log(response);
            });
-     }
+     },
      toggleInfoWindow: function(marker, idx) {
        this.infoWindowPos = marker.position;
        this.infoContent = marker.infoText;

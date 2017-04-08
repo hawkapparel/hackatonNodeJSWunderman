@@ -1,74 +1,64 @@
-// var locations = [
-//     ['Bondi Beach', -33.890542, 151.274856, 4],
-//     ['Coogee Beach', -33.923036, 151.259052, 5],
-//     ['Cronulla Beach', -34.028249, 151.157507, 3],
-//     ['Manly Beach', -33.80010128657071, 151.28747820854187, 2],
-//     ['Maroubra Beach', -33.950198, 151.259302, 1]
-//   ];
-
-  // var map = new google.maps.Map(document.getElementById('map'), {
-  //   zoom: 10,
-  //   center: new google.maps.LatLng(-33.92, 151.25)
-  //   // mapTypeId: google.maps.MapTypeId.ROADMAP
-  // });
-  //
-  // var infowindow = new google.maps.InfoWindow();
-  //
-  // var marker, i;
-  //
-  // for (i = 0; i < locations.length; i++) {
-  //   marker = new google.maps.Marker({
-  //     position: new google.maps.LatLng(locations[i][1], locations[i][2]),
-  //     map: map
-  //   });
-  //
-  //   google.maps.event.addListener(marker, 'click', (function(marker, i) {
-  //     return function() {
-  //       infowindow.setContent(locations[i][0]);
-  //       infowindow.open(map, marker);
-  //     }
-  //   })(marker, i));
-  // }
-
-  var app = new Vue({
-    el: '#vueMap',
-    data: {
-      locations: [
-        {
-          nombre: 'Bondi Beach',
-          latitud: '-33.890542',
-          longitud: '151.274856'
-        },
-        {
-          nombre:'Coogee Beach',
-          latitud:'-33.923036',
-          longitud:'151.259052'
-        }
-      ]
-    },
-    mounted: function(){
-      var map = new google.maps.Map(document.getElementById('map'), {
-        zoom: 10,
-        center: new google.maps.LatLng(-33.92, 151.25)
-      });
-      var infowindow = new google.maps.InfoWindow();
-      var marker = [];
-      var i;
-
-      for (i = 0; i < this.locations.length; i++) {
-        console.log(this.locations[i].nombre);
-        var objMarker = new google.maps.Marker({
-          position: new google.maps.LatLng(this.locations[i].latitud, this.locations[i].longitud),
-          map: map,
-          title: this.locations[i].nombre
-        });
-        marker[i].addListener('click', function() {
-          infowindow.setContent('asdas');
-          infowindow.open(map, marker[i]);
-        });
-        marker.push(objMarker);
-      }
-      console.log(marker);
-
-    }
-  })
+Vue.use(VueGoogleMaps, {
+ load: {
+   key: 'AIzaSyCpSOEXuBwSjiCQfMseWutCpPrsoSAfg9g'
+ },
+});
+document.addEventListener('DOMContentLoaded', function() {
+ new Vue({
+   el: '#vueMap',
+   data: {
+     center: {
+       lat: 47.376332,
+       lng: 8.547511
+     },
+     infoContent: '',
+     infoWindowPos: {
+       lat: 0,
+       lng: 0
+     },
+     infoWinOpen: false,
+     currentMidx: null,
+     //optional: offset infowindow so it visually sits nicely on top of our marker
+     infoOptions: {
+       pixelOffset: {
+         width: 0,
+         height: -35
+       }
+     },
+     markers: [{
+       position: {
+         lat: 47.376332,
+         lng: 8.547511
+       },
+       infoText: 'Marker 1'
+     }, {
+       position: {
+         lat: 47.374592,
+         lng: 8.548867
+       },
+       infoText: 'Marker 2'
+     }, {
+       position: {
+         lat: 47.379592,
+         lng: 8.549867
+       },
+       infoText: 'Marker 3'
+     }]
+   },
+   methods: {
+     toggleInfoWindow: function(marker, idx) {
+       this.infoWindowPos = marker.position;
+       this.infoContent = marker.infoText;
+       //check if its the same marker that was selected if yes toggle
+       if (this.currentMidx == idx) {
+         this.infoWinOpen = !this.infoWinOpen;
+       }
+       //if different marker set infowindow to open and reset current marker index
+       else {
+         this.infoWinOpen = true;
+         this.currentMidx = idx;
+       }
+     }
+   }
+ });
+});

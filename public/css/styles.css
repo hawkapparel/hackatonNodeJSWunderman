@@ -1,4 +1,18 @@
 html, body { height: 100%; margin: 0; padding: 0; }
+#iname{
+    height: 3rem;
+    width: 30%;
+    font-size: 1.2rem;
+    padding-left: 15px;
+}
+
+#look{
+    min-width: 97px;
+    min-height: 17px;
+    padding-left: 10px;
+    font-size: 1rem;
+}
+
 #map {
   height: 400px;
   width: 100%;

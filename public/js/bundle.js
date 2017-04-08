@@ -28,11 +28,12 @@ document.addEventListener('DOMContentLoaded', function() {
      },
      markers: []
    },
-  //  created: function(){
-  //    this.consultarApi();
-  //  },
+   updated: function() {
+     console.log("asdasd");
+   },
    methods: {
      consultarApi: function(){
+       var bounds = new google.maps.LatLngBounds();
        this.$http.get('http://localhost:3000/api/clients/name/'+this.nameSearch)
            .then(function(response) {
              this.markers = response.body;
